@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
 import {QuestionGenerator} from './Questions';
 import {AnswersGenerator} from './Questions';
-
+import {Header} from './Questions';
+import { Jumbotron } from 'reactstrap';
 
 class App extends Component {
   constructor(){
@@ -67,21 +67,23 @@ class App extends Component {
 
   render() {
 
-    {this.state.answerChoices[0]}
-
     return (
-      <div className ="question_container">
-        <QuestionGenerator
-           question = {this.state.question[0]}
-           category = {this.state.category[0]}
-           answers = {this.state.answerChoices[0]}
-         />
-         <AnswersGenerator
-           answers = {this.state.answerChoices[0]}
-         />
-        <h1>
-          {this.state.triviaData && this.state.triviaData[0] ? this.state.triviaData[0].question : null }
-        </h1>
+      <div>
+        <div className = "App-header">
+          <Header/>
+        </div>
+        <Jumbotron>
+        <div className ="question_container">
+          <QuestionGenerator
+             question = {this.state.question[0]}
+             category = {this.state.category[0]}
+             answers = {this.state.answerChoices[0]}
+           />
+           <AnswersGenerator
+             answers = {this.state.answerChoices[0]}
+           />
+        </div>
+      </Jumbotron>
       </div>
     );
   }
