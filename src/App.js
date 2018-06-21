@@ -4,6 +4,7 @@ import {QuestionGenerator} from './Questions';
 import {AnswersGenerator} from './Questions';
 import {Header} from './Questions';
 import { Jumbotron } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 class App extends Component {
   constructor(){
@@ -12,7 +13,8 @@ class App extends Component {
       question:[],
       category: [],
       answerChoices: [],
-      correctAnswer: []
+      correctAnswer: [],
+      count: 0
     }
 
   }
@@ -52,36 +54,41 @@ class App extends Component {
          correctAnswer : correctAnswer
        })
      })
-
    }
 
 
-// clickHandler = () => {
-//    const category = this.state.triviaData[0].category;
-//    const question = this.state.triviaData[0].question;
-//    const correctAnswer = this.state.triviaData[0].correct_answer;
-//    const wrongAnswer = this.state.triviaData[0].incorrect_answers[0];
-//
-//  }
+ nextQuestionHandler = (event) => {
+   if (this.state.count < this.state.question.length){
+     this.setState({
+         count: this.state.count + 1
+     });
+    }
+  }
 
+  answerChoiceHandler = (event) => {
+    console.log("you've selected an answer choice")
+  }
 
   render() {
 
     return (
       <div>
         <div className = "App-header">
-          <Header/>
+          <Header count = {this.state.count}/>
         </div>
         <Jumbotron>
         <div className ="question_container">
           <QuestionGenerator
-             question = {this.state.question[0]}
-             category = {this.state.category[0]}
-             answers = {this.state.answerChoices[0]}
+             question = {this.state.question[this.state.count]}
+             category = {this.state.category[this.state.count]}
+             answers = {this.state.answerChoices[this.state.count]}
            />
            <AnswersGenerator
-             answers = {this.state.answerChoices[0]}
+             answers = {this.state.answerChoices[this.state.count]}
+             click = {this.answerChoiceHandler}
            />
+           <br/>
+           <Button onClick= {this.nextQuestionHandler} color="danger">Next Question</Button>
         </div>
       </Jumbotron>
       </div>
