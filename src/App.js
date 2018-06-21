@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Jumbotron } from 'reactstrap';
+import { Button } from 'reactstrap';
 import {QuestionGenerator} from './Questions';
 import {AnswersGenerator} from './Questions';
 import {Header} from './Questions';
-import { Jumbotron } from 'reactstrap';
-import { Button } from 'reactstrap';
+
 
 class App extends Component {
   constructor(){

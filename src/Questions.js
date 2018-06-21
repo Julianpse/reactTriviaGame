@@ -20,35 +20,14 @@ const answerStyle = {
   height: 60
 }
 
-const correctAnswerStyle = {
-  font : 'inherit',
-  backgroundColor : 'rgb(144,238,144,30)',
-  border: '1px solid',
-  padding: 8,
-  margin: 'auto',
-  marginBottom: 10,
-  cursor: 'pointer',
-  listStyleType: 'none',
-  textAlign: 'center',
-  width: '50%',
-  marginLeft: '25%',
-  height: 60
-}
-
-const wrongAnswerStyle = {
-  font : 'inherit',
-  backgroundColor : 'rgb(255, 179, 179)',
-  border: '1px solid red',
-  padding: 8,
-  margin: 'auto',
-  marginBottom: 10,
-  cursor: 'pointer',
-  listStyleType: 'none',
-  textAlign: 'center',
-  width: '50%',
-  marginLeft: '25%',
-  height: 60
-}
+//NOTE: Style objects are immutable so these wont work - just saving them for the color codes
+// export const toggleAnswerColorCorrect = () => {
+//   answerStyle.backgroundColor = 'rgb(144,238,144)'
+// }
+//
+// export const toggleAnswerColorIncorrect = () => {
+//   answerStyle.backgroundColor = 'rgb(255,179,179)'
+// }
 
 
 export const Header = (props) => {
@@ -74,8 +53,8 @@ export const AnswersGenerator = (props) => {
   return(
     <div>
       <ul>
-        <li style = {correctAnswerStyle} onClick = {props.click}>Answer 1</li>
-        <li style = {wrongAnswerStyle} onClick = {props.click}>Answer 1</li>
+        <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
+        <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
         <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
         <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
       </ul>
