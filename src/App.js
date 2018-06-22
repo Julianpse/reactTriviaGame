@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Jumbotron } from 'reactstrap';
 import { Button } from 'reactstrap';
 import {QuestionGenerator} from './Questions';
-import {AnswersGenerator} from './Questions';
+import {AnswerGenerator} from './Questions';
 import {Header} from './Questions';
 
 
@@ -15,7 +15,9 @@ class App extends Component {
       category: [],
       answerChoices: [],
       correctAnswer: [],
-      count: 0
+      count: 0,
+      colors : ['white', 'white', 'white', 'white'],
+      status: ''
     }
 
   }
@@ -61,39 +63,100 @@ class App extends Component {
  nextQuestionHandler = (event) => {
    if (this.state.count < this.state.question.length){
      this.setState({
-         count: this.state.count + 1
+         count: this.state.count + 1,
+         colors : ['white', 'white', 'white', 'white']
      });
     }
   }
 
-  answerChoiceHandler = (event) => {
-    console.log("you've selected an answer choice")
+  answerChoiceHandler0 = (event) => {
+    console.log("You selected " + this.state.answerChoices[this.state.count][0])
+  }
+
+  answerChoiceHandler1 = (event) => {
+    console.log("You selected " + this.state.answerChoices[this.state.count][1])
+  }
+
+  answerChoiceHandler2 = (event) => {
+    console.log("You selected " + this.state.answerChoices[this.state.count][2])
+  }
+
+  answerChoiceHandler3 = (event) => {
+    console.log("You selected " + this.state.answerChoices[this.state.count][3])
+  }
+
+  checkAnswerHandler = (event, ans, ansId) => {
+    let correctAnswer = this.state.correctAnswer[this.state.count]
+    let answers = this.state.answerChoices[this.state.count]
+
+    let red = 'rgb(255,179,179)'
+    let green = 'rgb(144,238,144)'
+
+    let colors = [...this.state.colors];
+      if (correctAnswer === ans) {
+        console.log("correct")
+        let color = green
+        colors[parseInt(ansId)] = green;
+
+      } else {
+        console.log("incorrect")
+        let color = red
+        colors[parseInt(ansId)] = red;
+      }
+
+      this.setState({colors: colors});
   }
 
   render() {
+    if (this.state.status === 'started') {
+      return (
+        <div>
+          <div className = "App-header">
+            <Header count = {this.state.count}/>
+          </div>
+          <Jumbotron>
+          <div className ="question_container">
+            <QuestionGenerator
+               question = {this.state.question[this.state.count]}
+               category = {this.state.category[this.state.count]}
+               answers = {this.state.answerChoices[this.state.count]}
+             />
+             <ul>
+               <AnswerGenerator
+                 correctAnswer = {this.state.correctAnswer[this.state.count]}
+                 answers = {this.state.answerChoices[this.state.count]}
+                 click = {this.checkAnswerHandler}
+                 id = '0'
+                 color = {this.state.colors[0]}
+               />
+               <AnswerGenerator
+                 answers = {this.state.answerChoices[this.state.count]}
+                 click = {this.checkAnswerHandler}
+                 id = '1'
+                 color = {this.state.colors[1]}
+               />
+               <AnswerGenerator
+                 answers = {this.state.answerChoices[this.state.count]}
+                 click = {this.checkAnswerHandler}
+                 id = '2'
+                 color = {this.state.colors[2]}
+               />
+               <AnswerGenerator
+                 answers = {this.state.answerChoices[this.state.count]}
+                 click = {this.checkAnswerHandler}
+                 id = '3'
+                 color = {this.state.colors[3]}
+               />
+             </ul>
+             <br/>
+             <Button onClick= {this.nextQuestionHandler} color="danger">Next Question</Button>
+          </div>
+        </Jumbotron>
+        </div>
+      );
+      }
 
-    return (
-      <div>
-        <div className = "App-header">
-          <Header count = {this.state.count}/>
-        </div>
-        <Jumbotron>
-        <div className ="question_container">
-          <QuestionGenerator
-             question = {this.state.question[this.state.count]}
-             category = {this.state.category[this.state.count]}
-             answers = {this.state.answerChoices[this.state.count]}
-           />
-           <AnswersGenerator
-             answers = {this.state.answerChoices[this.state.count]}
-             click = {this.answerChoiceHandler}
-           />
-           <br/>
-           <Button onClick= {this.nextQuestionHandler} color="danger">Next Question</Button>
-        </div>
-      </Jumbotron>
-      </div>
-    );
+      return <div>click me</div>
   }
 }
 

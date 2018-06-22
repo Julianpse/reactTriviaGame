@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
 
+let buttonColor = "white"
+//Green color for correct answer'rgb(144,238,144)'
+//Red Color for incorrect answer'rgb(255,179,179)'
+
 const scoreStyle =  {
   textAlign: 'left'
 };
 
 const answerStyle = {
   font : 'inherit',
-  backgroundColor : 'white',
+  backgroundColor : buttonColor,
   border: '1px solid',
   padding: 8,
   margin: 'auto',
@@ -19,15 +23,6 @@ const answerStyle = {
   marginLeft: '25%',
   height: 60
 }
-
-//NOTE: Style objects are immutable so these wont work - just saving them for the color codes
-// export const toggleAnswerColorCorrect = () => {
-//   answerStyle.backgroundColor = 'rgb(144,238,144)'
-// }
-//
-// export const toggleAnswerColorIncorrect = () => {
-//   answerStyle.backgroundColor = 'rgb(255,179,179)'
-// }
 
 
 export const Header = (props) => {
@@ -49,16 +44,24 @@ export const QuestionGenerator = (props) => {
   );
 }
 
-export const AnswersGenerator = (props) => {
-  return(
-    <div>
-      <ul>
-        <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
-        <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
-        <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
-        <li style = {answerStyle} onClick = {props.click}>Answer 1</li>
-      </ul>
-      <li dangerouslySetInnerHTML={{ __html: props.answers }} />
-    </div>
-    );
+export const AnswerGenerator = (props) => {
+
+  let myStyle = {...answerStyle};
+  let answerId = parseInt(props.id);
+
+  //if statement below fixes the problem of where props return undefined when passed
+  let answer = null;
+  let correctAnswer = null;
+  let color = null;
+
+  if (props.answers) {
+    answer = props.answers[answerId];
+    correctAnswer = props.correctAnswer;
+    myStyle.backgroundColor = props.color;
+  }
+
+  console.log(correctAnswer);
+  console.log(props.color);
+
+  return <li dangerouslySetInnerHTML={{ __html: answer }} style = {myStyle} onClick = {(e) => {props.click(e, answer, answerId)}}/>
 }
