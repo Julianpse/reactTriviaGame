@@ -29,7 +29,7 @@ export const Header = (props) => {
   return(
     <div>
       <h1>Trivia Game</h1>
-      <p style={scoreStyle}>Question Number: {props.count}/10</p>
+      <p style={scoreStyle}>Question Number: {props.count + 1}/10</p>
     </div>
   )
 }

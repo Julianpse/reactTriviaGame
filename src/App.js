@@ -69,22 +69,6 @@ class App extends Component {
     }
   }
 
-  answerChoiceHandler0 = (event) => {
-    console.log("You selected " + this.state.answerChoices[this.state.count][0])
-  }
-
-  answerChoiceHandler1 = (event) => {
-    console.log("You selected " + this.state.answerChoices[this.state.count][1])
-  }
-
-  answerChoiceHandler2 = (event) => {
-    console.log("You selected " + this.state.answerChoices[this.state.count][2])
-  }
-
-  answerChoiceHandler3 = (event) => {
-    console.log("You selected " + this.state.answerChoices[this.state.count][3])
-  }
-
   checkAnswerHandler = (event, ans, ansId) => {
     let correctAnswer = this.state.correctAnswer[this.state.count]
     let answers = this.state.answerChoices[this.state.count]
@@ -108,7 +92,8 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.status === 'started') {
+    // TODO add this if statement in after the welcome screen is added
+    // if (this.state.status === 'started') {
       return (
         <div>
           <div className = "App-header">
@@ -156,8 +141,8 @@ class App extends Component {
       );
       }
 
-      return <div>click me</div>
-  }
+  //     return <div>click me</div>
+  // }
 }
 
 export default App;
