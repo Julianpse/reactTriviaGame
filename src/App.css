@@ -16,6 +16,16 @@
   text-align: center;
 }
 
+/* Count Box and Scorebox */
+.block-left {
+  float: left;
+}
+
+.block-right {
+  float: right;
+}
+
+
 .question_container{
   text-align: center;
 }

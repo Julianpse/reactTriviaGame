@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 let buttonColor = "white"
-//Green color for correct answer'rgb(144,238,144)'
-//Red Color for incorrect answer'rgb(255,179,179)'
 
-const scoreStyle =  {
-  textAlign: 'left'
-};
 
 const answerStyle = {
   font : 'inherit',
@@ -29,7 +24,19 @@ export const Header = (props) => {
   return(
     <div>
       <h1>Trivia Game</h1>
-      <p style={scoreStyle}>Question Number: {props.count + 1}/10</p>
+    </div>
+  )
+}
+
+export const ScoreBox = (props) => {
+  return(
+    <div className = "scoreBox">
+      <div className = "block-left">
+        <p>Question Number: {props.count + 1}/10</p>
+      </div>
+      <div className = "block-right">
+        <p>Your Score: {props.correctCount}</p>
+      </div>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import {QuestionGenerator} from './Questions';
 import {AnswerGenerator} from './Questions';
 import {Header} from './Questions';
+import {ScoreBox} from './Questions';
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
       answerChoices: [],
       correctAnswer: [],
       count: 0,
+      correctCount: 0,
       colors : ['white', 'white', 'white', 'white'],
       status: ''
     }
@@ -72,15 +74,19 @@ class App extends Component {
   checkAnswerHandler = (event, ans, ansId) => {
     let correctAnswer = this.state.correctAnswer[this.state.count]
     let answers = this.state.answerChoices[this.state.count]
+    let count = this.state.correctCount
 
     let red = 'rgb(255,179,179)'
     let green = 'rgb(144,238,144)'
 
+
     let colors = [...this.state.colors];
+
       if (correctAnswer === ans) {
         console.log("correct")
         let color = green
         colors[parseInt(ansId)] = green;
+        this.setState({correctCount: count + 1})
 
       } else {
         console.log("incorrect")
@@ -97,7 +103,11 @@ class App extends Component {
       return (
         <div>
           <div className = "App-header">
-            <Header count = {this.state.count}/>
+            <Header />
+            <ScoreBox
+              count = {this.state.count}
+              correctCount = {this.state.correctCount}
+            />
           </div>
           <Jumbotron>
           <div className ="question_container">
