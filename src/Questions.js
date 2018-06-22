@@ -15,10 +15,13 @@ const answerStyle = {
   listStyleType: 'none',
   textAlign: 'center',
   width: '50%',
-  marginLeft: '25%',
+  marginLeft: '24%',
   height: 60
 }
 
+function disableClick (btn) {
+		document.getElementById('AnswerGenerator').disabled = true;
+}
 
 export const Header = (props) => {
   return(
@@ -67,8 +70,7 @@ export const AnswerGenerator = (props) => {
     myStyle.backgroundColor = props.color;
   }
 
-  console.log(correctAnswer);
-  console.log(props.color);
-
-  return <li dangerouslySetInnerHTML={{ __html: answer }} style = {myStyle} onClick = {(e) => {props.click(e, answer, answerId)}}/>
+  return (
+      <li dangerouslySetInnerHTML={{ __html: answer }} style = {myStyle} onClick = {(e) => {props.click(e, answer, answerId);}}/>
+   );
 }

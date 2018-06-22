@@ -25,9 +25,21 @@
   float: right;
 }
 
-
 .question_container{
   text-align: center;
+}
+
+.answers{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.answerStatus{
+  margin-right: 25px;
+}
+
+.nextButton{
+  margin-left: auto;
 }
 
 .App-title {
