@@ -3,10 +3,10 @@ import axios from 'axios';
 import './App.css';
 import { Jumbotron } from 'reactstrap';
 import { Button } from 'reactstrap';
-import {QuestionGenerator} from './Questions';
-import {AnswerGenerator} from './Questions';
-import {Header} from './Questions';
-import {ScoreBox} from './Questions';
+import { QuestionGenerator } from './Components';
+import { AnswerGenerator } from './Components';
+import { Header } from './Components';
+import { ScoreBox } from './Components';
 
 
 class App extends Component {
@@ -93,7 +93,7 @@ class App extends Component {
       if (correctAnswer === ans) {
         //correct answer
         let color = green
-        colors[parseInt(ansId)] = green;
+        colors[parseInt(ansId)] = color;
         this.setState({
           correctCount: count + 1,
           isCorrect: true
@@ -102,7 +102,7 @@ class App extends Component {
       } else {
         //incorrect answer
         let color = red
-        colors[parseInt(ansId)] = red;
+        colors[parseInt(ansId)] = color;
         this.setState({isCorrect:false})
       }
 

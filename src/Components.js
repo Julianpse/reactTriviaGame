@@ -19,10 +19,6 @@ const answerStyle = {
   height: 60
 }
 
-function disableClick (btn) {
-		document.getElementById('AnswerGenerator').disabled = true;
-}
-
 export const Header = (props) => {
   return(
     <div>
