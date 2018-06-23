@@ -63,15 +63,7 @@ export const QuestionGenerator = (props) => {
       </div>
     );
   } else
-  return (
-    <Col xs="auto">
-      <Jumbotron className = "startEndGameBox">
-        <h1>You finished the game!</h1>
-        <br/>
-        <Button className = 'startButton' onClick = {props.click} color="danger">Play Again?</Button>
-      </Jumbotron>
-    </Col>
-  );
+  return <EndGame />
 }
 
 export const AnswerGenerator = (props) => {
@@ -98,6 +90,32 @@ export const AnswerGenerator = (props) => {
         </Col>
       </div>
      );
+   } else {
+     return null;
+   }
+}
+
+export const ButtonGenerator = (props) => {
+  if (props.count < props.question.length -1){
+    return (
+      <Button className = 'nextButton' onClick= {props.clickNextQuestion} color="danger"> Next Question </Button>
+    )
   } else
-  return null;
+    return (
+      <Button className = 'nextButton' onClick = {props.clickEndGame} color = "danger">Finish Game</Button>
+    )
+  }
+
+export const EndGame = (props) => {
+  return (
+    <Col xs="auto">
+      <Jumbotron className = "startEndGameBox">
+        <h1>You finished the game!</h1>
+        <br/>
+        <h2>Your score is: {props.score}/10</h2>
+        <br/>
+        <Button className = 'endButton' onClick = {props.click} color="danger">Play Again?</Button>
+      </Jumbotron>
+    </Col>
+  );
 }

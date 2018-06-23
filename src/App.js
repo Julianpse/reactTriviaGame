@@ -8,6 +8,7 @@ import { Header } from './Components';
 import { ScoreGenerator } from './Components';
 import { QuestionGenerator } from './Components';
 import { AnswerGenerator } from './Components';
+import { ButtonGenerator } from './Components';
 import { EndGame } from './Components';
 
 
@@ -70,23 +71,27 @@ class App extends Component {
 
 startClickHandler = (event) => {
   event.preventDefault();
-  this.setState({gameStatus: 'started'});
+  this.setState({gameStatus: 'started', count: 0});
 }
 
-endClickHandler = (event) => {
+endGameHandler = (event) => {
   event.preventDefault();
   this.setState({gameStatus: 'finished'});
 }
 
-
  nextQuestionHandler = (event) => {
-   if (this.state.count < this.state.question.length){
+   if (this.state.count < this.state.question.length -1){
      this.setState({
          count: this.state.count + 1 ,
          colors : ['white', 'white', 'white', 'white'],
          disabled: false
      });
-    }
+     console.log(this.state.gameStatus);
+   } else if (this.state.count == this.state.question.length -1){
+     this.setState({
+       gameStatus: 'finished'
+     });
+   }
   }
 
 
@@ -187,16 +192,20 @@ endClickHandler = (event) => {
                 </div>
                </div>
              </ul>
-             {this.state.count < 10 ? <Button className = 'nextButton' onClick= {this.nextQuestionHandler} color="danger"> Next Question </Button> : null}
+             <ButtonGenerator count = {this.state.count} clickNextQuestion= {this.nextQuestionHandler} clickEndGame = {this.endGameHandler} question = {this.state.question}/>
           </div>
         </Jumbotron>
       </div>
         );
-    } else if (this.state.gameStatus === 'notStarted') {
-      return (
-      <StartGame click = {this.startClickHandler}/>
-      );
+      } else if (this.state.gameStatus === 'finished') {
+          return (
+            <EndGame click = {this.startClickHandler} score = {this.state.correctCount}/>
+          )
+      } else if (this.state.gameStatus === 'notStarted') {
+          return (
+          <StartGame click = {this.startClickHandler}/>
+          );
+      }
     }
   }
-}
 export default App;
