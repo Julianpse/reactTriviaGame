@@ -69,14 +69,31 @@ class App extends Component {
      })
    }
 
+  componentWillUnmount = () => {
+     this.setState({
+       question:[],
+       category: [],
+       answerChoices: [],
+       correctAnswer: [],
+       count: 0,
+       correctCount: 0,
+       colors : ['white', 'white', 'white', 'white'],
+       gameStatus: 'started',
+       disabled: false,
+       isCorrect: true
+     })
+   }
+
 startClickHandler = (event) => {
-  event.preventDefault();
   this.setState({gameStatus: 'started', count: 0});
 }
 
 endGameHandler = (event) => {
-  event.preventDefault();
   this.setState({gameStatus: 'finished'});
+}
+
+restartClickHandler = (event) => {
+  this.componentDidMount();
 }
 
  nextQuestionHandler = (event) => {
@@ -129,8 +146,6 @@ endGameHandler = (event) => {
 
 
   render() {
-
-    let _correctAnswer = {__html: this.state.correctAnswer[this.state.count]}
 
    if (this.state.gameStatus === 'started') {
         return (
@@ -187,7 +202,7 @@ endGameHandler = (event) => {
                    count = {this.state.count}
                  />
                  <div className ="answerStatus">
-                   {this.state.disabled && !this.state.isCorrect ? <h5>Sorry, the correct answer is {_correctAnswer.__html}</h5> : null}
+                   {this.state.disabled && !this.state.isCorrect ? <div dangerouslySetInnerHTML={{__html: `<h5>Sorry, the correct answer is ${this.state.correctAnswer[this.state.count]} </h5>`}} />: null}
                    {this.state.disabled && this.state.isCorrect ? <h5>You got it, dude!</h5> : null}
                 </div>
                </div>
@@ -199,7 +214,8 @@ endGameHandler = (event) => {
         );
       } else if (this.state.gameStatus === 'finished') {
           return (
-            <EndGame click = {this.startClickHandler} score = {this.state.correctCount}/>
+            <EndGame click = {this.restartClickHandler} score = {this.state.correctCount} unmount = {this.componentWillUnmount}/>
+
           )
       } else if (this.state.gameStatus === 'notStarted') {
           return (

@@ -114,7 +114,7 @@ export const EndGame = (props) => {
         <br/>
         <h2>Your score is: {props.score}/10</h2>
         <br/>
-        <Button className = 'endButton' onClick = {props.click} color="danger">Play Again?</Button>
+        <Button className = 'endButton' onClick = {() => { props.unmount(); props.click() }} color="danger">Play Again?</Button>
       </Jumbotron>
     </Col>
   );
