@@ -31,7 +31,7 @@ export const Header = (props) => {
 export const StartGame = (props) => {
   return(
     <Col xs="auto">
-      <Jumbotron className = "startGameBox">
+      <Jumbotron className = "startEndGameBox">
         <h1>Welcome to Trivia!</h1>
         <h3>Test Your Knowledge in 10 Questions! How many can you get right?</h3>
         <Button className = 'startButton' onClick = {props.click} color="danger">Play</Button>
@@ -54,12 +54,23 @@ export const ScoreGenerator = (props) => {
 }
 
 export const QuestionGenerator = (props) => {
-  return(
-    <div>
-      <p><b>Category:</b> {props.category}</p>
-      <h1 dangerouslySetInnerHTML={{ __html: props.question }} />
-      <br />
-    </div>
+  if (props.count < 10) {
+    return(
+      <div>
+        <p><b>Category:</b> {props.category}</p>
+        <h1 dangerouslySetInnerHTML={{ __html: props.question }} />
+        <br />
+      </div>
+    );
+  } else
+  return (
+    <Col xs="auto">
+      <Jumbotron className = "startEndGameBox">
+        <h1>You finished the game!</h1>
+        <br/>
+        <Button className = 'startButton' onClick = {props.click} color="danger">Play Again?</Button>
+      </Jumbotron>
+    </Col>
   );
 }
 
@@ -79,11 +90,14 @@ export const AnswerGenerator = (props) => {
     myStyle.backgroundColor = props.color;
   }
 
-  return (
-    <div className = "answerChoices">
-      <Col>
-        <li dangerouslySetInnerHTML={{ __html: answer }} style = {myStyle} onClick = {(e) => {props.click(e, answer, answerId);}}/>
-      </Col>
-    </div>
-   );
+  if (props.count < 10) {
+    return (
+      <div className = "answerChoices">
+        <Col>
+          <li dangerouslySetInnerHTML={{ __html: answer }} style = {myStyle} onClick = {(e) => {props.click(e, answer, answerId);}}/>
+        </Col>
+      </div>
+     );
+  } else
+  return null;
 }

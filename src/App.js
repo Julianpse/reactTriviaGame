@@ -8,6 +8,7 @@ import { Header } from './Components';
 import { ScoreGenerator } from './Components';
 import { QuestionGenerator } from './Components';
 import { AnswerGenerator } from './Components';
+import { EndGame } from './Components';
 
 
 
@@ -70,6 +71,11 @@ class App extends Component {
 startClickHandler = (event) => {
   event.preventDefault();
   this.setState({gameStatus: 'started'});
+}
+
+endClickHandler = (event) => {
+  event.preventDefault();
+  this.setState({gameStatus: 'finished'});
 }
 
 
@@ -137,6 +143,8 @@ startClickHandler = (event) => {
                  question = {this.state.question[this.state.count]}
                  category = {this.state.category[this.state.count]}
                  answers = {this.state.answerChoices[this.state.count]}
+                 count = {this.state.count}
+                 click = {this.startClickHandler}
                />
              <ul>
                <div className = "answers">
@@ -147,6 +155,7 @@ startClickHandler = (event) => {
                    id = '0'
                    color = {this.state.colors[0]}
                    disabled={this.state.isButtonDisabled}
+                   count = {this.state.count}
                 />
                  <AnswerGenerator
                    answers = {this.state.answerChoices[this.state.count]}
@@ -154,6 +163,7 @@ startClickHandler = (event) => {
                    id = '1'
                    color = {this.state.colors[1]}
                    disabled={this.state.isButtonDisabled}
+                   count = {this.state.count}
                  />
                  <AnswerGenerator
                    answers = {this.state.answerChoices[this.state.count]}
@@ -161,6 +171,7 @@ startClickHandler = (event) => {
                    id = '2'
                    color = {this.state.colors[2]}
                    disabled={this.state.isButtonDisabled}
+                   count = {this.state.count}
                  />
                  <AnswerGenerator
                    answers = {this.state.answerChoices[this.state.count]}
@@ -168,6 +179,7 @@ startClickHandler = (event) => {
                    id = '3'
                    color = {this.state.colors[3]}
                    disabled={this.state.isButtonDisabled}
+                   count = {this.state.count}
                  />
                  <div className ="answerStatus">
                    {this.state.disabled && !this.state.isCorrect ? <h5>Sorry, the correct answer is {_correctAnswer.__html}</h5> : null}
@@ -175,14 +187,16 @@ startClickHandler = (event) => {
                 </div>
                </div>
              </ul>
-             <Button className = 'nextButton' onClick= {this.nextQuestionHandler} color="danger">Next Question</Button>
+             {this.state.count < 10 ? <Button className = 'nextButton' onClick= {this.nextQuestionHandler} color="danger"> Next Question </Button> : null}
           </div>
         </Jumbotron>
       </div>
         );
-    } else return (
+    } else if (this.state.gameStatus === 'notStarted') {
+      return (
       <StartGame click = {this.startClickHandler}/>
-    )
+      );
+    }
   }
 }
 export default App;

@@ -6,7 +6,7 @@
   background-color: #ADD8E6;
 }
 
-.startGameBox {
+.startEndGameBox {
   max-width: 400px;
   max-height: 400px;
   margin: auto;
@@ -66,6 +66,12 @@
 
 .nextButton{
   margin-left: auto;
+}
+
+.endButton{
+  width: 100px;
+  margin-top: 40px;
+  margin: auto;
 }
 
 .App-title {
