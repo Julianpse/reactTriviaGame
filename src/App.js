@@ -3,10 +3,12 @@ import axios from 'axios';
 import './App.css';
 import { Jumbotron } from 'reactstrap';
 import { Button } from 'reactstrap';
+import { StartGame } from './Components';
+import { Header } from './Components';
+import { ScoreGenerator } from './Components';
 import { QuestionGenerator } from './Components';
 import { AnswerGenerator } from './Components';
-import { Header } from './Components';
-import { ScoreBox } from './Components';
+
 
 
 class App extends Component {
@@ -20,7 +22,7 @@ class App extends Component {
       count: 0,
       correctCount: 0,
       colors : ['white', 'white', 'white', 'white'],
-      status: '',
+      gameStatus: 'notStarted',
       disabled: false,
       isCorrect: true
     }
@@ -65,6 +67,11 @@ class App extends Component {
      })
    }
 
+startClickHandler = (event) => {
+  event.preventDefault();
+  this.setState({gameStatus: 'started'});
+}
+
 
  nextQuestionHandler = (event) => {
    if (this.state.count < this.state.question.length){
@@ -79,7 +86,6 @@ class App extends Component {
 
   checkAnswerHandler = (event, ans, ansId) => {
     let correctAnswer = this.state.correctAnswer[this.state.count]
-    let answers = this.state.answerChoices[this.state.count]
     let count = this.state.correctCount
     let red = 'rgb(255,179,179)'
     let green = 'rgb(144,238,144)'
@@ -113,24 +119,25 @@ class App extends Component {
 
   render() {
 
-    // TODO add this if statement in after the welcome screen is added
-    // if (this.state.status === 'started') {
-      return (
-        <div>
-          <div className = "App-header">
-            <Header />
-            <ScoreBox
-              count = {this.state.count}
-              correctCount = {this.state.correctCount}
-            />
-          </div>
-          <Jumbotron>
-          <div className ="question_container">
-            <QuestionGenerator
-               question = {this.state.question[this.state.count]}
-               category = {this.state.category[this.state.count]}
-               answers = {this.state.answerChoices[this.state.count]}
-             />
+    let _correctAnswer = {__html: this.state.correctAnswer[this.state.count]}
+
+   if (this.state.gameStatus === 'started') {
+        return (
+          <div>
+            <div className = "App-header">
+              <Header />
+              <ScoreGenerator
+                count = {this.state.count}
+                correctCount = {this.state.correctCount}
+              />
+            </div>
+            <Jumbotron className = "gameContainer">
+            <div className ="question_container">
+              <QuestionGenerator
+                 question = {this.state.question[this.state.count]}
+                 category = {this.state.category[this.state.count]}
+                 answers = {this.state.answerChoices[this.state.count]}
+               />
              <ul>
                <div className = "answers">
                  <AnswerGenerator
@@ -163,7 +170,7 @@ class App extends Component {
                    disabled={this.state.isButtonDisabled}
                  />
                  <div className ="answerStatus">
-                   {this.state.disabled && !this.state.isCorrect ? <h5>Sorry, the correct answer is {this.state.correctAnswer[this.state.count]}</h5> : null}
+                   {this.state.disabled && !this.state.isCorrect ? <h5>Sorry, the correct answer is {_correctAnswer.__html}</h5> : null}
                    {this.state.disabled && this.state.isCorrect ? <h5>You got it, dude!</h5> : null}
                 </div>
                </div>
@@ -171,13 +178,11 @@ class App extends Component {
              <Button className = 'nextButton' onClick= {this.nextQuestionHandler} color="danger">Next Question</Button>
           </div>
         </Jumbotron>
-        </div>
-      );
-
-
-  //     return <div>click me</div>
-  // }
-}
-
+      </div>
+        );
+    } else return (
+      <StartGame click = {this.startClickHandler}/>
+    )
+  }
 }
 export default App;

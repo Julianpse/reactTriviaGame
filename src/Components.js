@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Container, Row, Col } from 'reactstrap';
+import { Jumbotron } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 let buttonColor = "white"
 
@@ -21,13 +24,23 @@ const answerStyle = {
 
 export const Header = (props) => {
   return(
-    <div>
       <h1>Trivia Game</h1>
-    </div>
   )
 }
 
-export const ScoreBox = (props) => {
+export const StartGame = (props) => {
+  return(
+    <Col xs="auto">
+      <Jumbotron className = "startGameBox">
+        <h1>Welcome to Trivia!</h1>
+        <h3>Test Your Knowledge in 10 Questions! How many can you get right?</h3>
+        <Button className = 'startButton' onClick = {props.click} color="danger">Play</Button>
+      </Jumbotron>
+    </Col>
+  )
+}
+
+export const ScoreGenerator = (props) => {
   return(
     <div className = "scoreBox">
       <div className = "block-left">
@@ -67,6 +80,10 @@ export const AnswerGenerator = (props) => {
   }
 
   return (
-      <li dangerouslySetInnerHTML={{ __html: answer }} style = {myStyle} onClick = {(e) => {props.click(e, answer, answerId);}}/>
+    <div className = "answerChoices">
+      <Col>
+        <li dangerouslySetInnerHTML={{ __html: answer }} style = {myStyle} onClick = {(e) => {props.click(e, answer, answerId);}}/>
+      </Col>
+    </div>
    );
 }
