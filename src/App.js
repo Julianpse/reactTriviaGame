@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import { Jumbotron } from 'reactstrap';
-import { Button } from 'reactstrap';
-import { StartGame } from './Components';
-import { Header } from './Components';
-import { ScoreGenerator } from './Components';
-import { QuestionGenerator } from './Components';
-import { AnswerGenerator } from './Components';
-import { ButtonGenerator } from './Components';
-import { EndGame } from './Components';
-
+import { Jumbotron, Button } from 'reactstrap';
+import { StartGame, Header, ScoreGenerator, QuestionGenerator, AnswerGenerator, ButtonGenerator, EndGame } from './Components';
 
 
 class App extends Component {
@@ -43,7 +35,7 @@ class App extends Component {
 }
 
 
-  componentDidMount = () => {
+  componentDidMount () {
     let questions = [];
     let categories = [];
     let allAnswers = [];
@@ -69,7 +61,7 @@ class App extends Component {
      })
    }
 
-  componentWillUnmount = () => {
+   resetGame = () => {
      this.setState({
        question:[],
        category: [],
@@ -214,7 +206,7 @@ restartClickHandler = (event) => {
         );
       } else if (this.state.gameStatus === 'finished') {
           return (
-            <EndGame click = {this.restartClickHandler} score = {this.state.correctCount} unmount = {this.componentWillUnmount}/>
+            <EndGame click = {this.restartClickHandler} score = {this.state.correctCount} reset = {this.resetGame}/>
 
           )
       } else if (this.state.gameStatus === 'notStarted') {
@@ -224,4 +216,5 @@ restartClickHandler = (event) => {
       }
     }
   }
+
 export default App;
